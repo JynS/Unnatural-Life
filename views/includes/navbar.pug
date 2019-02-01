@@ -1,0 +1,15 @@
+nav.navbar.c-navbar
+    div.container
+        div.c-navbar-wrapper
+            a(href="/comic/latest")
+                img.banner.img-responsive(src="/layout/banner.jpg" alt="Unnatural Life")
+            a.btn.c-page-nav-btn(href="/about") ABOUT
+            a.btn.c-page-nav-btn(href="/comic/archive") ARCHIVE
+            a.btn.c-page-nav-btn(href="/characters") CAST
+            a.btn.c-page-nav-btn(href="/links") LINKS
+            if isAdmin
+                a.btn.c-page-nav-btn(href="/new/comic") NEW PAGE
+                if comic
+                    a.btn.c-page-nav-btn(href="/update/comic?page=" + comic.page) EDIT PAGE
+                    a.btn.c-page-nav-btn.c-delete-btn(c-delete-target="#comic-page-" + comic.id) DELETE PAGE
+                a.btn.c-page-nav-btn#logout(href="/admin/logout") LOG OUT

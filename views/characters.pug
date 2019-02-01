@@ -1,0 +1,36 @@
+extends extends/skeleton.pug
+
+block extra-forms
+    form#c-add-form.c-hide.c-edit-form
+        a.btn.c-btn.c-edit-close
+            i.fa.fa-times-circle
+        div#c-add-name-wrapper.c-hide
+            label Name:
+            input#c-add-name.form-control(placeholder="required" required=true)
+        div#c-add-order-wrapper.c-hide
+            label Order:
+            input#c-add-order.form-control(type="number" placeholder="optional")
+        div#c-add-image-wrapper.c-hide
+            label Image:
+            input#c-add-image(type="file" name="image" required=true)
+        div#c-additor-text-wrapper.c-hide
+            div#c-additor-text.c-editor.c-editor-text.trumbowyg-box
+        div.c-btn-submit-wrapper
+            button.btn.c-btn.c-btn-submit(type="submit") Submit
+
+block content
+    div(style="position: relative;")
+        h1 Cast
+        +add-btn('character')
+    div.c-characters
+        each val, index in cast
+            +character(val)
+    div(style="position: relative;")
+        h2 Organizations
+        +add-btn('organization')
+    div
+        hr
+        i General note: World government is uniform, unified, and more powerful than city states. Locally, city states are radically diverse in how they govern within and across their borders.
+        hr
+        each val, index in organizations
+            +organization(val)

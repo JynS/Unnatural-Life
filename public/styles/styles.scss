@@ -1,0 +1,393 @@
+@font-face {font-family: "genotype S BRK";
+    src: url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.eot"); /* IE9*/
+    src: url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.woff2") format("woff2"), /* chrome firefox */
+    url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.woff") format("woff"), /* chrome firefox */
+    url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("/c6fe5bd74b0613fc0b5dc3a3d42f04c5.svg#genotype S BRK") format("svg"); /* iOS 4.1- */
+}
+// TODO: make this actually utilize all that Sass has to offer
+// TODO: clean up and organize
+// ------------- Variables ------------- \\
+$bgc1: #424243;
+$bgc2: #000;
+$bgc3: #868688;
+$bgc4: #EEEEEE;
+$borderc: #2B2B2C;
+$border: 4px solid $borderc;
+
+// --- screen widths --- \\
+$tablet-landscape: 1024px;
+$sm-tablet-landscape: 800px;
+$tablet-portrait: 768px;
+$sm-tablet-portrait: 600px;
+$mobile-landscape: 480px;
+$mobile-portrait: 320px;
+
+$characters-mobile: 991px;
+
+// ------------- Mixins ------------- \\
+@mixin c-button($fcN, $bgN, $fcH-comp, $bgH-comp, $fcH-touch, $bgH-touch) {
+    color: $fcN;
+    border: $border;
+    border-radius: 0;
+    background-color: $bgN;
+    margin-bottom: 10px;
+    font-family: "Genotype S BRK";
+    font-size: 26px;
+    padding: 1px 12px 1px 12px;
+    letter-spacing: 2px;
+
+    &:hover {
+        color: $fcH-comp;
+        background-color: $bgH-comp;
+    }
+    @media (max-width: $tablet-landscape) {
+        &:hover {
+            color: $fcH-touch;
+            background-color: $bgH-touch;
+        }
+    }
+
+}
+
+@mixin editBtn($r) {
+    position: absolute;
+    top: 0;
+    right: $r;
+    z-index: 1;
+}
+
+// ------------- Rules ------------- \\
+
+body {
+    background-color: $bgc1;
+    background: url('/layout/bg.png');
+    color: #fff;
+    font-size: 16px;
+}
+h1, h2, h3, .h1, .h2, .h3 {
+    text-align: center;
+    font-family: "Genotype S BRK";
+    letter-spacing: 2px;
+}
+h1, .h1 {
+    font-size: 80px;
+    @media (max-width: $mobile-portrait) {
+        font-size: 50px;
+    }
+}
+h2, .h2 {
+    font-size: 74px;
+    @media (max-width: $mobile-landscape) {
+        font-size: 43px;
+    }
+}
+h3, .h3 {
+    font-size: 62px;
+    @media (max-width: $mobile-landscape) {
+        font-size: 32px;
+    }
+}
+ul {
+    list-style: none;
+}
+textarea {
+    color: #333;
+    resize: vertical;
+}
+.form-control {
+    margin-bottom: 10px;
+}
+.form-group {
+    text-align: center;
+}
+.c-active {
+    background-color: $bgc4 !important;
+    color: #333 !important;
+}
+.c-navbar {
+    background-color: $bgc2;
+    border-radius: 0;
+    border: 0;
+    background-color: transparent;
+    margin: 0 auto -21px auto;
+
+    .container {
+        background-color: $bgc2;
+    }
+}
+
+.banner {
+    margin-bottom: 5px;
+}
+.c-content-wrapper {
+    background-color: $bgc2;
+    padding-top: 20px;
+}
+.container {
+    @media (min-width: 1200px) {
+        width: 970px;
+    }
+}
+.c-content {
+    position: relative;
+    margin: 0 auto;
+    border: $border;
+    margin-bottom: 10px;
+    background-color: $bgc1;
+    padding: 20px;
+
+    i {
+        text-align: center;
+    }
+}
+.c-img-panel {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+.c-warning, .c-summary, .c-explanation, .c-error {
+
+    text-align: center;
+}
+
+.c-warning-list {
+
+    border: $border;
+
+    width: 684px;
+    margin: 0 auto 10px auto;
+    text-align: left;
+
+    ul {
+        margin-bottom: 0;
+    }
+
+    li {
+        border: 0;
+        border-radius: 0 !important;
+        border-top: 1px solid $borderc;
+        border-radius: 0;
+        background-color: $bgc3;
+    }
+
+    @media (max-width: $tablet-portrait) {
+        width: auto;
+    }
+
+    input[type="checkbox"] {
+
+        @media (max-width: $tablet-portrait) {
+            -webkit-appearance:none;
+            min-width: 40px;
+            min-height: 40px;
+        }
+    }
+}
+
+.c-page-nav {
+    position: relative;
+}
+
+.c-btn {
+    @include c-button(#fff, $bgc3, #333, $bgc4, #fff, $bgc3);
+}
+.c-page-nav-btn {
+    @include c-button(#fff, $bgc1, #333, $bgc4, #333, $bgc4);
+    width: 25%;
+
+    @media (max-width: $tablet-portrait) {
+        width: 100%;
+    }
+}
+.c-trans-bn {
+    @include c-button(#fff, $bgc1, #333, $bgc4, #fff, $bgc1);
+    width: 100%;
+}
+.c-resetWarning {
+    text-align: center;
+}
+
+.c-chartable {
+    position: relative;
+    margin-bottom: 30px;
+    border: $border;
+    background-color: $bgc1;
+    @media (max-width: $characters-mobile) {
+        padding: 0 5px 0 5px;
+    }
+    .c-edit-btn {
+        right: 54px;
+    }
+}
+.char-descr {
+    text-align: center;
+    p {
+        font-size: 16px;
+    }
+    @media (max-width: $characters-mobile) {
+        p {
+            margin: 7px;
+        }
+    }
+}
+.char-icon {
+    .c-edit-btn {
+        right: 55px;
+    }
+    img {
+
+        width: 250px;
+        height: 250px;
+        position: relative;
+        @media (max-width: $characters-mobile) {
+            margin: 10px auto 0 auto;
+            border: $border;
+        }
+    }
+}
+.c-organization {
+    .c-edit-btn {
+        right: 54px;
+    }
+}
+.c-artist {
+    text-align: center;
+}
+.transcript {
+    text-align: left;
+    padding: 20px;
+    font-size: 26px;
+
+    p {
+        margin-bottom: 20px;
+    }
+}
+.trans-desc {
+    font-style: italic;
+}
+.trans-speak {
+    font-weight: bold;
+    font-size: 30px;
+}
+.trans-thought {
+    font-style: italic;
+}
+.c-archive {
+    border: $border;
+    border-radius: 0;
+    margin-bottom: 10px;
+    height: 36px;
+}
+.c-comments {
+    margin-top: 20px;
+}
+
+.c-hide {
+    display: none !important;
+}
+
+.c-links-list {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+.c-error {
+    img {
+        width: 250px;
+        height: 250px;
+
+        @media (max-width: $characters-mobile) {
+            width: 200px;
+            height: 200px;
+        }
+    }
+}
+
+.c-summary {
+    font-size: 26px;
+}
+.c-edit-btn, .c-edit-close, .c-add-btn, .c-error-close, .c-delete-btn-stylw  {
+    @include editBtn(0);
+}
+// wrapper
+.c-wrapper {
+    position: relative;
+    height: 100%;
+}
+// loading panel
+.c-loading {
+    border: $border;
+    width: 70px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+// Edit Panel
+.c-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: rgba(10, 10, 10, 0.9);
+}
+.c-edit-content {
+    position: fixed;
+    // padding: 45px;
+    top: 40px;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    z-index: 1;
+    text-align: start;
+
+    textarea {
+        resize: none;
+        border-radius: 0;
+    }
+}
+.c-error-wrapper {
+    position: fixed;
+    top: 10%;
+    bottom: 15%;
+    right: 20%;
+    left: 20%;
+}
+.c-error {
+    margin: 0 auto;
+    .h3 {
+        margin-bottom: 30px;
+    }
+}
+.c-editor {
+    height: 70%;
+    padding: 10px;
+    overflow-y: scroll;
+    border: $border;
+    margin-bottom: 10px;
+}
+.c-editor-text {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    text-align: start;
+    ul {
+        list-style: inherit;
+    }
+}
+.c-edit-form {
+    margin-bottom: 0;
+}
+.trumbowyg-modal-box {
+    color: #333;
+}
+.c-btn-submit-wrapper {
+    text-align: center;
+    bottom: 0;
+}
+.c-lock {
+    overflow: hidden;
+}

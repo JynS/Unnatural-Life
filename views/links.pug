@@ -1,0 +1,14 @@
+extends extends/skeleton.pug
+
+block content
+    h1 Links
+    div.c-content
+        +edit-btn('#goodArtBlog-html-' + goodArtBlog.id)
+        h2 Good Art Blog
+        div(id="goodArtBlog-html-" + goodArtBlog.id)
+            != goodArtBlog.html
+    div.c-content
+        +edit-btn('#theOtherWhiteMeat-html-' + theOtherWhiteMeat.id)
+        h2 The Other White Meat
+        div(id="theOtherWhiteMeat-html-" +  + theOtherWhiteMeat.id)
+            != theOtherWhiteMeat.html

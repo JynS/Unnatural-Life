@@ -1,0 +1,35 @@
+extends extends/skeleton.pug
+
+block content
+    h1 Edit Page
+    div.c-content
+        form.form-group#c-edit-page
+            h3 Arc Tile
+            input.form-control#arc(name="arc" value=comic.arc)
+            h3 Chapter Title
+            input.form-control#title(name="title" value=comic.title)
+            h3 Content Warnings
+            div.c-warning-list#warnings
+                ul.list-group
+                    each val, index in warnings
+                        - var onList = comic.warningKeys.indexOf(Number.parseInt(val.val)) >= 0 ? true : false;
+                        +warning(val, onList)
+            h3 Image
+            div.c-content.c-img-panel
+                img.img-responsive#c-comic(src='/chapters/' + comic.image)
+            input#image(type="file" name="image")
+            h3 Summary
+            div.trumbowyg-box.c-editor-text#summary(name="summary")
+            h3 Transcript
+            div.trumbowyg-box.c-editor-text#transcript(name="transcript")
+            h3 Artist's Comments
+            div.trumbowyg-box.c-editor-text#comments(name="comments")
+            button.btn.c-btn.c-btn-submit(type="submit") Submit
+        div.c-loading.c-hide
+            img(src="/layout/loading.gif")
+        script.
+            var retPage = #{retPage};
+            var comic = !{JSON.stringify(comic)};
+            document.getElementById("summary").innerHTML = comic.summary || "";
+            document.getElementById("transcript").innerHTML = comic.transcript || "";
+            document.getElementById("comments").innerHTML = comic.artistComments || "";

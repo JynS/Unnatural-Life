@@ -1,0 +1,59 @@
+html(lang="en")
+    head
+        include ../includes/head.pug
+    body
+        include ../includes/mixins.pug
+        div.c-wrapper#c-wrapper
+            div.container-fluid.c-overlay.c-hide#c-overlay
+                if isAdmin
+                    div.c-edit-content.c-content.form-group#c-edit-content
+                        form#c-edit-form.c-edit-form.c-hide
+                            a.btn.c-btn.c-edit-close
+                                i.fa.fa-times-circle
+                            div#c-editor-name-wrapper.c-hide
+                                label Name:
+                                input#c-editor-name.form-control(type="text" name="name" placeholder="Name")
+                            div#c-editor-order-wrapper.c-hide
+                                label Order:
+                                input#c-editor-order.form-control(type="number" name="order" placeholder="Order")
+                            div#c-editor-image-wrapper.c-hide
+                                label Image:
+                                input#c-editor-image(type="file" name="image")
+                            div#c-editor-text-wrapper.c-hide
+                                //- FIXME: susceptible to XSS attacks
+                                div#c-editor-text.c-editor.c-editor-text.trumbowyg-box
+                            div.c-btn-submit-wrapper
+                                button.btn.c-btn.c-btn-submit(type="submit") Submit
+                        div#c-delete-form.c-hide
+                            p.h3 Are you sure want to delete
+                            p.h3
+                                span#to-delete
+                            div.c-btn-submit-wrapper
+                                button#no-delete.btn.c-btn NO
+                                span &nbsp;
+                                button#yes-delete.btn.c-btn YES
+                        block extra-forms
+                        div.c-loading.c-hide
+                            img(src="/layout/loading.gif")
+                div.c-error-wrapper.c-hide.c-content
+                    div.c-error
+                        a.btn.c-btn.c-error-close
+                            i.fa.fa-times-circle
+                        p.h3 Login Failed
+                        img(src="/layout/failed.jpg")
+            div.container-fluid
+                // navbar
+                include ../includes/navbar.pug
+                div.container.c-content-wrapper
+                    block content
+                        //- TODO: add RSS link
+                    div(style="text-align: center")
+                        a(type="application/rss+xml" href="/rss.xml")
+                            i(class="fa fa-rss-square" style="margin-bottom: 5px; color: #FA9C39")
+                        br
+                        a(rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/")
+                            img(alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png")
+                        br
+                        p This work is licensed under a
+                        a(rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/") Creative Commons Attribution-NonCommercial 4.0 International License.
+        include ../includes/scripts.pug

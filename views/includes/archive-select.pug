@@ -1,0 +1,11 @@
+select#archive.form-control.c-archive(name="comic")
+    option(select=selected) Select a comic
+    - var title = "";
+    each c, index in comics
+        if c.arc
+            option(value="_") -----------------------
+            +chapter(c.arc)
+            option(value="_") -----------------------
+        if c.title
+            - title = c.title
+        +chapter(title, c.page)

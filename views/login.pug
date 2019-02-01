@@ -1,0 +1,11 @@
+extends extends/skeleton.pug
+
+block content
+    h1 Login
+    form.c-content#c-login
+        div.form-group
+            input.form-control(type="text" placeholder="login" name="username")
+            input.form-control(type="password" placeholder="password" name="password")
+            button.btn.c-btn.c-btn-submit(type="submit") Submit
+            div.c-loading.c-hide
+                img(src="/layout/loading.gif")

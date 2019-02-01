@@ -1,0 +1,26 @@
+extends extends/skeleton.pug
+
+block content
+    h1 New Page
+    div.c-content
+        form.form-group#c-new-page()
+            h3 Arc Tile
+            input.form-control#arc(name="arc" placeholder="optional")
+            h3 Chapter Title
+            input.form-control#title(name="title" placeholder="optional")
+            h3 Content Warnings
+            div.c-warning-list#warnings
+                ul.list-group()
+                    each val, index in warnings
+                        +warning(val)
+            h3 Image
+            input#image(type="file" name="image" required=true)
+            h3 Summary
+            div.trumbowyg-box.c-editor-text#summary(name="summary")
+            h3 Transcript
+            div.trumbowyg-box.c-editor-text#transcript(name="transcript" required=true)
+            h3 Artist's Comments
+            div.trumbowyg-box.c-editor-text#comments(name="comments")
+            button.btn.c-btn.c-btn-submit(type="submit") Submit
+        div.c-loading.c-hide
+            img(src="/layout/loading.gif")

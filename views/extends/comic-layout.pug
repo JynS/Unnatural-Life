@@ -1,0 +1,98 @@
+extends skeleton.pug
+
+block content
+    // title
+    h1 #{comic.arc}
+    h2 #{comic.title}
+    // archive
+    //- TODO: try not to rebuild this on every page
+    include ../includes/archive-select.pug
+    // Restore content warings
+    div.c-resetWarning(class=showReset ? '' : 'c-hide')
+        a#resetWarning.btn.c-page-nav-btn Reset Warnings
+    // The content warning
+    div#c-warning.c-content.c-warning(class=showWarning ? '' : 'c-hide')
+        h2 Content Warning
+        if comic.page === 1
+            p.h3 Rated 15+
+        ul#pageWarnings
+            each w in comic.warningText
+                li= w
+        div.c-warning-btn-grp
+            a#showContent.btn.c-btn.c-toggle(class= showComic ? "c-active" : "" c-vis-target="c-img-panel") CONTINUE
+            //- this span needs to be here to force a space
+            span &nbsp;
+            a#showSummary.btn.c-btn.c-toggle(c-vis-target="c-summary") SUMMARY
+            span &nbsp;
+            if !isAdmin
+                a#explain.btn.c-btn.c-toggle(c-vis-target="c-explanation") CUSTOMIZE
+    // The comic panel
+    div#c-img-panel(class= showComic ? '' : 'c-hide')
+        div.c-content.c-img-panel
+            block panels
+                if comic.nextPage !== -1
+                    a(href="/comic?page=" + comic.nextPage)
+                        img.img-responsive(id="comic-image-" + comic.id src='/chapters/' + comic.image)
+                else
+                    img.img-responsive#c-comic(src='/chapters/' + comic.image)
+    // The summary
+    div#c-summary.c-content.c-summary.c-hide
+        div(id="comic-summary-" + comic.id)
+            != comic.summary
+    // Explanation
+    if !isAdmin
+        //- TODO: make a separate page for this so I don't need to send and build the warnings every page
+        div#c-explanation.c-content.c-explanation.c-hide
+            p This series contains a lot of potentially upsetting material and, therefore, warnings are provided for each page when applicable.
+            p If you don't think you need them and would prefer to have the comic load immediately, click 'SKIP' below. If you want to customize the warnings to only appear for certain content, click 'CUSTOMIZE':
+            //- TODO: let user know that cookies are unenabled
+            a#skipWarnings.btn.c-btn SKIP
+            span &nbsp;
+            a#customizeWarnings-btn.btn.c-btn.c-toggle(c-vis-target="customizeWarnings") CUSTOMIZE
+            p Note: Cookies need to be enabled for this site in order for this to work.
+            div#customizeWarnings.c-hide
+                p Here are all the possible warnings for this series. Listed in order of frequency. Select the ones you desire and click the send button below:
+                div#c-warning-list.c-warning-list
+                    ul.list-group
+                        each val, index in warnings
+                            - var onList = Array.isArray(userwarnings) && userwarnings.indexOf(Number.parseInt(val.val)) >= 0  ? true : false;
+                            +warning(val, onList)
+                a#sendWarnings.btn.c-btn SEND
+    // navigation buttons
+    div.c-page-nav
+        a.btn.c-page-nav-btn(href="/comic/first") FIRST
+        if comic.prevPage === -1
+            a.btn.c-page-nav-btn.disabled(disabled=disabled) PREVIOUS
+        else
+            a.btn.c-page-nav-btn(href=href="/comic?page=" + comic.prevPage) PREVIOUS
+        if comic.nextPage === -1
+            a.btn.c-page-nav-btn.disabled(disabled=disabled) NEXT
+        else
+            a.btn.c-page-nav-btn(href=href="/comic?page=" + comic.nextPage) NEXT
+        a.btn.c-page-nav-btn(href='/comic/latest') LAST
+    // transcript
+    a#transcript-btn.btn.c-page-nav-btn.c-trans-bn.c-toggle(c-vis-target="transcript") TRANSCRIPT
+    div#transcript.c-content.transcript.c-hide
+        p.trans-desc (Internal Monologue) *sound* [Gesture/action.]
+        hr
+        div(id="comic-transcript-" + comic.id)
+            != comic.transcript
+    // comments
+    div.c-comments
+        // artist comments
+        div.c-artist
+            div.c-content
+                h2 Artist's Comments
+                div(id="comic-comments-" + comic.id)
+                    != comic.artistComments
+        // user comments
+        div.c-user
+            div.c-content
+                h2 The Rabble
+                block comments
+                    div#disqus_thread
+                        script (function() { var d = document, s = d.createElement('script'); s.src = '//unatural-life.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+                        noscript Please enable JavaScript to view the
+                            a(href="https://disqus.com/?ref_noscript") comments powered by Disqus.
+    script.
+        const pagewarnings = [#{comic.warningKeys}];

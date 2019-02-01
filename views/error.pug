@@ -1,0 +1,15 @@
+extends extends/skeleton.pug
+
+block content
+    h1 #{status}
+    div.c-content.c-error
+        if isDev
+            p #{message}
+            p #{error}
+            p #{error.stack}
+        if status === 404
+            p Page not found
+            img(src="/layout/404.png")
+        else if status >= 500
+            p Internal server error
+            img(src="/layout/500.png")
